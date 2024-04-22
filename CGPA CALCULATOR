@@ -1,0 +1,65 @@
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+float calculateGPA(char Grade) {
+    switch(Grade) {
+        case 'A':
+        case 'a':
+            return 4.0;
+        case 'B':
+        case 'b':
+            return 3.0;
+        case 'C':
+        case 'c':
+            return 2.0;
+        case 'D':
+        case 'd':
+            return 1.0;
+        case 'F':
+        case 'f':
+            return 0.0;
+        default:
+            return -1.0; // invalid grade option
+    }
+}
+
+int main() {
+    int totalsubjects;
+    float totalcredits = 0, totalgradepoints = 0;
+
+    cout << "Enter the total number of subjects: ";
+    cin >> totalsubjects;
+
+    for (int i = 1; i <= totalsubjects; ++i) {
+        float Credits;
+        char Grade;
+
+        cout << "Enter the credit hours for subject " << i << ": ";
+        cin >> Credits;
+        totalcredits += Credits;
+
+        cout << "Enter the grade for subject " << i << ": ";
+        cin >> Grade;
+        if (calculateGPA(Grade) == -1.0) {
+            cout << "Error!: Invalid Grade entered. Exiting." << endl;
+            return 1;
+        }
+
+        totalgradepoints += calculateGPA(Grade) * Credits;
+    }
+
+    if (totalcredits == 0) {
+        cout << "ERROR!: Total credits cannot be zero." << endl;
+        return 1;
+    }
+
+    float cgpa = totalgradepoints / totalcredits;
+    cout << fixed << setprecision(2);
+    cout << "Your CGPA is: " << cgpa << endl;
+
+    return 0;
+}
+
+
